@@ -1,6 +1,7 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
+
 import { useState, useEffect } from "react";
 
 export default function BookingForm() {
@@ -9,6 +10,7 @@ export default function BookingForm() {
   const adult = parseInt(searchParams.get("adult") || "1");
   const children = parseInt(searchParams.get("children") || "0");
   const infant = parseInt(searchParams.get("infant") || "0");
+  const router = useRouter();
 
   const [passengerData, setPassengerData] = useState([]);
 
@@ -37,9 +39,13 @@ export default function BookingForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitted passenger data:", passengerData);
-    alert("Booking confirmed!");
-  };
 
+    alert("Booking confirmed!");
+
+    setTimeout(() => {
+      router.push("/");
+    }, 0);
+  };
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-semibold mb-6 text-indigo-700">

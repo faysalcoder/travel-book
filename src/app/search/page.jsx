@@ -11,7 +11,7 @@ export default function SearchPage() {
 
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  console.log(flights);
   const origin = searchParams.get("origin");
   const destination = searchParams.get("destination");
   const departureDate = searchParams.get("departureDate");
@@ -121,52 +121,57 @@ export default function SearchPage() {
                 </div>
 
                 {/* Flight Details */}
-                <div className="flex flex-col gap-4 flex-1 text-sm sm:text-base text-blue-800">
-                  <div className="flex gap-6 items-center">
-                    <div className="flex items-center gap-2">
-                      <PlaneTakeoff className="w-5 h-5 text-blue-600" />
-                      <div>
-                        <p className="text-xs text-blue-400 uppercase font-medium">
-                          Origin
-                        </p>
-                        <p className="font-medium">{origin}</p>
-                      </div>
+                {/* Flight Details (Updated with Line, Duration, Stops) */}
+                <div className="flex flex-2 justify-center items-center w-full">
+                  <div className="flex items-center justify-between w-full text-center text-gray-800 relative">
+                    {/* Departure Info */}
+                    <div className="text-left w-1/3">
+                      <p className="text-xl font-semibold">
+                        {new Date(leg?.arrivaldate).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                        })}
+                      </p>
+                      <p className="text-sm text-gray-500 leading-tight">
+                        {origin}
+                      </p>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-5 h-5 text-blue-600" />
-                      <div>
-                        <p className="text-xs text-blue-400 uppercase font-medium">
-                          Duration
-                        </p>
-                        <p className="font-medium">
-                          {Math.floor(duration / 60)}h {duration % 60}m
-                        </p>
-                      </div>
-                    </div>
-                  </div>
 
-                  <div className="flex gap-6 items-center">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-5 h-5 text-blue-600" />
-                      <div>
-                        <p className="text-xs text-blue-400 uppercase font-medium">
-                          Stops
-                        </p>
-                        <p className="font-medium">
+                    {/* Middle Line with Duration & Stops */}
+                    <PlaneTakeoff className="w-5 h-5 text-blue-600 bg-white z-10 mr-3" />
+                    <div className="relative w-1/3 flex flex-col items-center justify-center">
+                      {/* Line */}
+
+                      {/* Plane Icon */}
+
+                      {/* Duration & Stops */}
+                      <div className="flex flex-col items-center text-xs text-gray-500 mt-1 z-10 bg-white px-2">
+                        <span className="text-sm font-medium mb-3">
+                          {Math.floor(duration / 60)}h {duration % 60}m
+                        </span>
+                        <div className="border-t border-dashed border-gray-400 w-full absolute top-1/2 transform -translate-y-1/2 z-0"></div>
+                        <span>
                           {stops === 0
-                            ? "Non-stop"
-                            : `${stops} stop${stops > 1 ? "s" : ""}`}
-                        </p>
+                            ? "Non Stop"
+                            : `${stops} Stop${stops > 1 ? "s" : ""}`}
+                        </span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <PlaneLanding className="w-5 h-5 text-blue-600" />
-                      <div>
-                        <p className="text-xs text-blue-400 uppercase font-medium">
-                          Destination
-                        </p>
-                        <p className="font-medium">{destination}</p>
-                      </div>
+                    <PlaneLanding className="w-5 h-5 text-blue-600 bg-white z-10 ml-3" />
+
+                    {/* Arrival Info */}
+                    <div className="text-right w-1/3">
+                      <p className="text-xl font-semibold">
+                        {new Date(leg?.departuredate).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                        })}
+                      </p>
+                      <p className="text-sm text-gray-500 leading-tight">
+                        {destination}
+                      </p>
                     </div>
                   </div>
                 </div>
