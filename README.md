@@ -1,36 +1,163 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ✈️ Travel Booking Portal - Travalo
 
-## Getting Started
+A modern travel booking platform built with **Next.js App Router**, **React**, **Firebase Authentication**, and **Tailwind CSS**. 
 
-First, run the development server:
+---
+
+## 🌐 Live URL
+
+[https://travel-book-yl4n.vercel.app/](https://travel-book-yl4n.vercel.app/)
+
+---
+
+## 📦 Tech Stack
+
+- **Framework:** Next.js 14 (App Router)
+- **Language:** JavaScript
+- **State Management:** React Context API
+- **Styling:** Tailwind CSS
+- **Authentication:** Firebase Auth (Email/Password + Google)
+- **API:** Flight search using public `https://api.tbp.travel/flights`
+
+---
+
+## ⚙️ Setup & Run Instructions
+
+1. **Clone the Repository**
+
+```bash
+git clone https://github.com/faysalcoder/travel-book.git
+cd travel-booking-portal
+```
+
+2. **Install Dependencies**
+
+```bash
+npm install
+```
+
+3. **Start the Development Server**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit: [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📄 Project Structure
 
-## Learn More
+```
+app/
+├── layout.jsx
+├── page.jsx (Home)
+├── search/page.jsx
+├── booking/page.jsx
+├── login/page.jsx
+components/
+├── BookingForm.jsx
+├── FlightSearch.jsx
+├── Footer.jsx
+├── Hero.jsx
+├── Login.jsx
+├── PackageCard.jsx
+├── PrivateRoute.jsx
+├── SearchResult.jsx
+context/
+├── authContext.jsx
+lib/
+├── firebase.js
+cotext/
+├── authContext.js
+public/
+styles/
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ✅ Features & Functionality
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 1. 🏠 Home Page
 
-## Deploy on Vercel
+- Hero section
+- Functional search bar with:
+  - Origin
+  - Destination
+  - Departure & Return Dates
+  - Passengers (adults/children/infants)
+- Popular Packages (static)
+- Responsive Footer
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 2. 🔍 Search Page
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Parses search query from URL
+- Fetches flight results using `POST https://api.tbp.travel/flights`
+- Displays:
+  - Airline name, origin & destination
+  - Arrival , Departure time
+  - Flight duration, stops
+  - Price and Book Now button
+
+### 3. 🔒 Booking Flow
+
+- Clicking "Book Now" on any flight:
+  - If user is **not logged in** → redirects to `/login?from=/booking`
+  - If user **is logged in** → redirects to `/booking` with passenger query
+
+### 4. 🧾 Booking Page
+
+- Renders dynamic passenger forms based on query (`?adult=2&children=1`)
+- Each form collects:
+  - Name
+  - Age
+  - Passport Number (optional for children)
+
+### 5. 🔐 Firebase Authentication
+
+- Create Account with Name, Email, Password, Confirm Password
+- Google Sign-In (OAuth)
+- Auth state is globally managed with `Context API`
+
+---
+
+## 🔄 User Flow Summary
+
+1. **Home** → user fills the form → redirects to `/search?origin=...&adult=...`
+2. **Search Page** fetches and shows flight results
+3. **Book Now**:
+   - If not logged in → `/login?from=/booking`
+   - After login → redirected to `/booking`
+4. **Booking Page** renders passenger form dynamically
+5. **On Submit** → displays success message and redirects to Home
+
+---
+
+## 📌 Assumptions & Limitations
+
+- Backend database/storage not implemented (no real booking persistence)
+- Flights API is assumed to be functional but may have limited coverage
+- Booking flow ends at passenger submission (no payment integration)
+- Minimal validation applied to passenger inputs
+
+---
+
+## 📤 Submission
+
+**GitHub Repo:** [https://github.com/faysalcoder/travel-book](https://github.com/faysalcoder/travel-book)
+
+---
+
+## 👤 Author
+
+- **Name:** Md Faysal Sikder
+- **Role:** Frontend Developer
+- **Email:** faysalsikder378486@gmail.com
+- **LinkedIn:** https://linkedin.com/in/faysal-sikder
+
+---
+
+🧪 Tested with:  
+✅ Chrome, Firefox  
+✅ Desktop & Responsive  
+✅ Light/Dark Mode ready with Tailwind (optional)
